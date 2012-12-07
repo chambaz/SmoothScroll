@@ -28,7 +28,9 @@ Hijack mousewheel event and use jQuery to animate smoothly to target position.
 	    });
 	
 	    $('body').click(function() {
-	      smoothscroll.scrollTo(500);
-	    })
+	      smoothscroll.scrollTo(500, function() {
+            console.log("Scrolled to 500px");
+      	  });
+	    });
 	  });
 	  </script>
