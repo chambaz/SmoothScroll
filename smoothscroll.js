@@ -59,7 +59,7 @@ SmoothScroll.prototype.mouseWheel = function(e, delta) {
 	}
 };
 
-SmoothScroll.prototype.scrollPage = function() {
+SmoothScroll.prototype.scrollPage = function(cb) {
 	var from = {pos: this.positions.currentPos},
 		to = {pos: this.positions.targetPos},
 		scope = this;
@@ -76,19 +76,22 @@ SmoothScroll.prototype.scrollPage = function() {
 		},
 		easing: scope.easing,
 		complete: function () {
+			if(cb && typeof cb == 'function') {
+				cb();
+			}
 			scope.scrolling = false;
 		}
 	});
 };
 
-SmoothScroll.prototype.scrollTo = function(to) {
+SmoothScroll.prototype.scrollTo = function(to, cb) {
 	if(!to || to == this.positions.currentPos) {
 		return false;
 	}
 
 	// scroll to specified point
 	this.positions.targetPos = to * -1;
-	this.scrollPage();
+	this.scrollPage(cb);
 };
 
 
